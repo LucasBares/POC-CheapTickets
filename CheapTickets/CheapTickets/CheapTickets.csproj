@@ -65,6 +65,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\BaseComponents.cs" />
+    <Compile Include="Components\CompletedSearch.cs" />
+    <Compile Include="Components\HeaderComponents.cs" />
+    <Compile Include="Components\HotelComponents.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Exercise1.cs" />

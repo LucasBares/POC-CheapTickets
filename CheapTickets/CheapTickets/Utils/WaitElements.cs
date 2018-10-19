@@ -6,16 +6,10 @@ namespace CheapTickets.Utils
 {
     class WaitElements
     {
-        public IWebElement WaitForElementManipulable(By locator, int timeout)
-        {
-            return new WebDriverWait(Collection.driver, TimeSpan.FromSeconds(timeout))
-                .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator));
-        }
-
-        public IWebElement WaitForPageUntilElementIsVisible(By locator, int maxSeconds)
+        public IWebElement WaitForPageUntilElementIsVisible(IWebElement element, int maxSeconds)
         {
             return new WebDriverWait(Collection.driver, TimeSpan.FromSeconds(maxSeconds))
-                .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator));
+                .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
     }
 }
