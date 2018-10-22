@@ -73,7 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Exercise1.cs" />
     <Compile Include="Utils\Collection.cs" />
-    <Compile Include="Utils\SelectElements.cs" />
     <Compile Include="Utils\WaitElements.cs" />
   </ItemGroup>
   <ItemGroup>

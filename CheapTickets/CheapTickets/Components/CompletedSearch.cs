@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace CheapTickets.Components
 {
-    class CompletedSearch
+    class CompletedSearch : BaseComponents
     {
         public WaitElements WaitElements = new WaitElements();
 
@@ -14,20 +14,29 @@ namespace CheapTickets.Components
         {
             PageFactory.InitElements(Collection.driver, this);
         }
-        
+
         [FindsBy(How = How.Id, Using = "inpHotelNameMirror")]
-        public IWebElement InputPropertyName { get; set; }
+        private IWebElement InputPropertyName { get; set; }
+
+        [FindsBy(How = How.Id, Using = "hotelNameGoBtn")]
+        private IWebElement GoButton { get; set; }
+
+        [FindsBy(How = How.Id, Using = "hotelNameHeader")]
+        public IWebElement HeaderMain { get; set; }
+
+        [FindsBy(How = How.CssSelector, Using = "h3.visuallyhidden")]
+        public IWebElement ResultName { get; set; }
 
         private IList<IWebElement> ResultItems { get; set; }
 
-
-        [FindsBy(How = How.Id, Using = "hotelNameGoBtn")]
-        public IWebElement GoButton { get; set; }
-
         public void SearchByPropertyName(string value)
         {
-            InputPropertyName.SendKeys(value);
+            WaitElements.WaitForPageUntilElementIsVisible(InputPropertyName, 25).SendKeys(value);
+
+            WaitElements.WaitElement(By.ClassName("results-item"), 25);
+
             ResultItems = Collection.driver.FindElements(By.ClassName("results-item"));
+
             WaitElements.WaitForPageUntilElementIsVisible(ResultItems.First(), 10).Click();
         }
 

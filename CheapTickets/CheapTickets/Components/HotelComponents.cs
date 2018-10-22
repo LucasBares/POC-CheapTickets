@@ -18,17 +18,17 @@ namespace CheapTickets.Components
             PageFactory.InitElements(Collection.driver, this);
         }
 
-        [FindsBy(How = How.Id, Using ="hotel-destination-hlp")]
+        [FindsBy(How = How.Id, Using = "hotel-destination-hlp")]
         private IWebElement DestinyInput { get; set; }
 
-        [FindsBy(How= How.Id, Using = "hotel-checkin-hlp")]
+        [FindsBy(How = How.Id, Using = "hotel-checkin-hlp")]
         private IWebElement CheckInInput { get; set; }
 
-        private IList<IWebElement> ResultItemsSearchHotel { get; set; }
+        public IList<IWebElement> ResultItemsSearchHotel { get; set; }
 
         [FindsBy(How = How.CssSelector, Using = ".datepicker-cal-date:not(.disabled)")]
         private IWebElement CheckInDate { get; set; }
-        
+
         [FindsBy(How = How.CssSelector, Using = "button.btn.btn-clear")]
         private IWebElement CleanFieldButton { get; set; }
 
@@ -44,15 +44,16 @@ namespace CheapTickets.Components
         [FindsBy(How = How.Id, Using = "hotel-1-age-select-1-hlp")]
         private IWebElement ChildrenAgeSelect { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using= ".search-btn-col button:not([id])")]
+        [FindsBy(How = How.CssSelector, Using = ".search-btn-col button:not([id])")]
         private IWebElement SendHotelForm { get; set; }
 
         public void SendText(string value)
         {
             DestinyInput.SendKeys(value);
-            ResultItemsSearchHotel = Collection.driver.FindElements(By.ClassName("results-item"));
 
-            WaitElements.WaitForPageUntilElementIsVisible(CleanFieldButton, 100);
+            WaitElements.WaitElement(By.ClassName("results-item"), 25);
+
+            ResultItemsSearchHotel = Collection.driver.FindElements(By.ClassName("results-item"));
 
             WaitElements.WaitForPageUntilElementIsVisible(ResultItemsSearchHotel.First(), 10).Click();
 
@@ -61,6 +62,7 @@ namespace CheapTickets.Components
         public void ClickOnTodayDate()
         {
             CheckInInput.Click();
+
             CheckInDate.Click();
         }
 
@@ -68,9 +70,9 @@ namespace CheapTickets.Components
         {
             var date = DateTime.Now.AddDays(1).ToString("MM/dd/yyyy");
 
-            CheckOutDate.Click();
-
             CheckOutDate.Clear();
+
+            CheckOutDate.Click();
 
             CheckOutDate.SendKeys(date);
         }

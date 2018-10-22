@@ -1,10 +1,6 @@
 ﻿using OpenQA.Selenium.Chrome;
 using CheapTickets.Utils;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using System;
-using OpenQA.Selenium.Support.UI;
-using System.Collections.Generic;
 using CheapTickets.Components;
 
 namespace CheapTickets.Tests
@@ -15,7 +11,7 @@ namespace CheapTickets.Tests
         [SetUp]
         public void Inicializate()
         {
-            Collection.driver = new ChromeDriver(@"C:\Users\lucas.mazzini\Source\Repos\POC-CheapTickets\CheapTickets\CheapTickets");
+            Collection.driver = new ChromeDriver(@"C:\Users\Lucas\Source\Repos\POC-CheapTickets\CheapTickets\CheapTickets");
 
             Collection.driver.Manage().Window.Maximize();
 
@@ -23,8 +19,8 @@ namespace CheapTickets.Tests
         }
 
         [Test]
-        [Category("Exercise 1")]
-        public void Ex1()
+        [Category("TAE Evaluation")]
+        public void Exercise_1()
         {
             HeaderComponents HeaderComponents = new HeaderComponents();
 
@@ -65,11 +61,14 @@ namespace CheapTickets.Tests
 
             HotelComponents.ClickOnSearchForm();
 
-            // Wtf with this
+            Assert.Greater(HotelComponents.ResultItemsSearchHotel.Count, 0);
 
             // 9. Type “Faena Hotel Miami Beach” in the Search By Property Input - Bonus: Type the first 3 letters "Faena Hotel" and select the first suggestion.
 
+
             CompletedSearch.SearchByPropertyName("Faena Hotel");
+
+            Assert.That(CompletedSearch.HeaderMain.Text, Is.EqualTo("Search by property name"));
 
             // 9.a. Click on Go button
 

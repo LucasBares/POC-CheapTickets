@@ -11,5 +11,11 @@ namespace CheapTickets.Utils
             return new WebDriverWait(Collection.driver, TimeSpan.FromSeconds(maxSeconds))
                 .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(element));
         }
+
+        public IWebElement WaitElement(By locator, int maxSeconds)
+        {
+            return new WebDriverWait(Collection.driver, TimeSpan.FromSeconds(maxSeconds))
+                .Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
+        }
     }
 }
