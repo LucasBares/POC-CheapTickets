@@ -1,4 +1,5 @@
 ﻿using CheapTickets.Utils;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using System.Collections.Generic;
@@ -9,11 +10,6 @@ namespace CheapTickets.Components
     class CompletedSearch : BaseComponents
     {
         public WaitElements WaitElements = new WaitElements();
-
-        public CompletedSearch()
-        {
-            PageFactory.InitElements(Collection.driver, this);
-        }
 
         [FindsBy(How = How.Id, Using = "inpHotelNameMirror")]
         private IWebElement InputPropertyName { get; set; }
@@ -29,20 +25,26 @@ namespace CheapTickets.Components
 
         private IList<IWebElement> ResultItems { get; set; }
 
-        public void SearchByPropertyName(string value)
+        public CompletedSearch SearchByPropertyName(string value)
         {
             WaitElements.WaitForPageUntilElementIsVisible(InputPropertyName, 25).SendKeys(value);
 
             WaitElements.WaitElement(By.ClassName("results-item"), 25);
 
-            ResultItems = Collection.driver.FindElements(By.ClassName("results-item"));
+            ResultItems = _webDriver.FindElements(By.ClassName("results-item"));
 
             WaitElements.WaitForPageUntilElementIsVisible(ResultItems.First(), 10).Click();
+
+            return this;
         }
 
-        public void ClickOnGoButton()
+        public CompletedSearch ClickOnGoButton()
         {
+            Assert.That(HeaderMain.Text, Is.EqualTo("Search by property name"));
+
             GoButton.Click();
+
+            return this;
         }
     }
 }

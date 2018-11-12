@@ -1,11 +1,16 @@
-﻿using OpenQA.Selenium;
-
-namespace CheapTickets.Utils
+﻿namespace CheapTickets.Utils
 {
-    class Collection
+    public enum DriversLoQueSea
     {
-        public static IWebDriver driver { get; set; }
+        Chrome = 0,
+        Firefox = 1,
+        Edge = 2,
+        IE = 3,
+        Opera = 4,
+    };
 
+    public class Collection
+    {
+        
     }
-
 }

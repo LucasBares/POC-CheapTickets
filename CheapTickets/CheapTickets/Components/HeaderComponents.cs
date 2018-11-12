@@ -4,13 +4,8 @@ using OpenQA.Selenium.Support.PageObjects;
 
 namespace CheapTickets.Components
 {
-    class HeaderComponents
+    class HeaderComponents : BaseComponents
     {
-        public HeaderComponents()
-        {
-            PageFactory.InitElements(Collection.driver, this);
-        }
-
         [FindsBy(How = How.Id, Using = "primary-header-hotel")]
         public IWebElement HotelButton { get; set; }
 

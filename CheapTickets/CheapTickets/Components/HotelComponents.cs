@@ -9,14 +9,9 @@ using System.Linq;
 
 namespace CheapTickets.Components
 {
-    class HotelComponents
+    class HotelComponents : BaseComponents
     {
         public WaitElements WaitElements = new WaitElements();
-
-        public HotelComponents()
-        {
-            PageFactory.InitElements(Collection.driver, this);
-        }
 
         [FindsBy(How = How.Id, Using = "hotel-destination-hlp")]
         private IWebElement DestinyInput { get; set; }
@@ -47,26 +42,42 @@ namespace CheapTickets.Components
         [FindsBy(How = How.CssSelector, Using = ".search-btn-col button:not([id])")]
         private IWebElement SendHotelForm { get; set; }
 
-        public void SendText(string value)
+        public HotelComponents SearchHotel(string value)
         {
+
+            SendKeysMethod(DestinyInput, value);
+
+            /*DestinyInput.SendKeys("miam");
+            
             DestinyInput.SendKeys(value);
 
             WaitElements.WaitElement(By.ClassName("results-item"), 25);
 
             ResultItemsSearchHotel = Collection.driver.FindElements(By.ClassName("results-item"));
 
-            WaitElements.WaitForPageUntilElementIsVisible(ResultItemsSearchHotel.First(), 10).Click();
+            WaitElements.WaitForPageUntilElementIsVisible(ResultItemsSearchHotel.First(), 10).Click();*/
+
+            ClickMethod(ResultItemsSearchHotel);
+
+            return this;
 
         }
 
-        public void ClickOnTodayDate()
+        private void ClickMethod(IList<IWebElement> resultItemsSearchHotel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public HotelComponents ClickOnTodayDate()
         {
             CheckInInput.Click();
 
             CheckInDate.Click();
+
+            return this;
         }
 
-        public void ClickOnFutureDate()
+        public HotelComponents ClickOnFutureDate()
         {
             var date = DateTime.Now.AddDays(1).ToString("MM/dd/yyyy");
 
@@ -75,33 +86,43 @@ namespace CheapTickets.Components
             CheckOutDate.Click();
 
             CheckOutDate.SendKeys(date);
+
+            return this;
         }
 
-        public void SelectAdults(string value)
+        public HotelComponents SelectAdults(string value)
         {
-            var adultsSelect = new SelectElement(Collection.driver.FindElement(By.Id("hotel-1-adults-hlp")));
+            var adultsSelect = new SelectElement(Collection.Driver.FindElement(By.Id("hotel-1-adults-hlp")));
 
             adultsSelect.SelectByText(value);
+
+            return this;
         }
 
-        public void SelectChildren(string value)
+        public HotelComponents SelectChildren(string value)
         {
-            var childrenSelect = new SelectElement(Collection.driver.FindElement(By.Id("hotel-1-children-hlp")));
+            var childrenSelect = new SelectElement(Collection.Driver.FindElement(By.Id("hotel-1-children-hlp")));
 
             childrenSelect.SelectByText(value);
 
+            return this;
+
         }
 
-        public void SelectChildrenAge(string value)
+        public HotelComponents SelectChildrenAge(string value)
         {
-            SelectElement ageSelect = new SelectElement(Collection.driver.FindElement(By.Id("hotel-1-age-select-1-hlp")));
+            SelectElement ageSelect = new SelectElement(Collection.Driver.FindElement(By.Id("hotel-1-age-select-1-hlp")));
 
             ageSelect.SelectByText(value);
+
+            return this;
         }
 
-        public void ClickOnSearchForm()
+        public HotelComponents ClickOnSearchForm()
         {
             SendHotelForm.Click();
+
+            return this;
         }
 
     }
